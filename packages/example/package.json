@@ -1,0 +1,23 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "__generated__/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "postinstall": "expo-yarn-workspaces postinstall"
+  },
+  "dependencies": {
+    "expo": "^32.0.0",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-oidc-auth-code": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "expo-yarn-workspaces": "^1.1.0"
+  },
+  "private": true
+}

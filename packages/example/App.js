@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, Button } from 'react-native'
+import { withAuthorizationCodeHandler } from 'react-native-oidc-auth-code'
 
-export default class App extends React.Component {
+class App extends React.Component {
   render () {
     return (
       <View style={styles.container}>
@@ -9,6 +10,7 @@ export default class App extends React.Component {
           title="Open Url"
           onPress={() => {
             console.log('open button press')
+            this.props.openUrl('https://google.com')
           }}
         />
       </View>
@@ -24,3 +26,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
+
+export default withAuthorizationCodeHandler(App)
