@@ -65,3 +65,6 @@ lib
 
 # editor config directory
 .vscode
+
+# generated directory
+__generated__

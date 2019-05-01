@@ -1,0 +1,47 @@
+{
+  "name": "react-native-oidc-auth-code",
+  "version": "1.0.0",
+  "description": "Auto detect OpenIDConnect redirect url and get authorization code.",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvhtrong/react-native-oidc-auth-code.git"
+  },
+  "keywords": [
+    "react-native",
+    "oidc",
+    "auth-code"
+  ],
+  "author": "Trong Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lvhtrong/react-native-oidc-auth-code/issues"
+  },
+  "homepage": "https://github.com/lvhtrong/react-native-oidc-auth-code#readme",
+  "files": [
+    "lib/"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "metro-react-native-babel-preset": "^0.53.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
+    "react-native-modal": "^9.0.0",
+    "react-native-safe-area-view": "^0.13.1",
+    "react-native-vector-icons": "^6.4.2",
+    "recompose": "^0.30.0",
+    "url-parse": "^1.4.6"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}
