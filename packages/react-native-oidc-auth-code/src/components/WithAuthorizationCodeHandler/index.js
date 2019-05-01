@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { View, Alert } from 'react-native'
 import { compose, withState, withHandlers, withProps } from 'recompose'
 import _ from 'lodash'
 import Modal from 'react-native-modal'
 
-import { getCode } from '../../utils'
+import { getCode, getRedirectUrl } from '../../utils'
 import AuthCodeWebView from '../WebView'
 
 const withAuthorizationCodeHandler = WrappedComponent => {
@@ -48,13 +48,25 @@ export default compose(
   withState('callback', 'setCallback', undefined),
   withState('redirectUrl', 'setRedirectUrl', undefined),
   withHandlers({
-    openUrl: ({ setVisible, setUrl, setCallback, setRedirectUrl }) => (url, redirectUrl, onSuccess) => {
+    openUrl: ({ setVisible, setUrl, setCallback, setRedirectUrl }) => (
+      url,
+      onSuccess
+    ) => {
       setUrl(url)
-      setRedirectUrl(redirectUrl)
       setCallback({
         onSuccess
       })
-      setVisible(true)
+
+      const redirectUrl = getRedirectUrl(url)
+      if (_.isString(redirectUrl)) {
+        setRedirectUrl(redirectUrl)
+        setVisible(true)
+      } else {
+        setRedirectUrl(undefined)
+        setVisible(true)
+
+        Alert.alert('', 'Redirect Uri is missing', [{ text: 'OK' }])
+      }
     },
     onNavigationStateChange: ({
       callback,
