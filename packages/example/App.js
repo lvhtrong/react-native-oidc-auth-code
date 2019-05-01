@@ -9,8 +9,15 @@ class App extends React.Component {
         <Button
           title="Open Url"
           onPress={() => {
-            console.log('open button press')
-            this.props.openUrl('https://google.com')
+            this.props.openUrl(
+              'PLACE_YOUR_URL_HERE',
+              code => {
+                console.log('code', code)
+              },
+              error => {
+                console.log('error', error)
+              }
+            )
           }}
         />
       </View>
