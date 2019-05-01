@@ -68,3 +68,6 @@ lib
 
 # generated directory
 __generated__
+
+# expo
+.expo
