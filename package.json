@@ -6,7 +6,8 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "commit": "git-cz",
     "build": "lerna run build",
-    "clean": "lerna clean"
+    "clean": "lerna clean",
+    "test": "lerna run test --stream"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
