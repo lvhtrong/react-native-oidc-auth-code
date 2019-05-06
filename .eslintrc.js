@@ -9,5 +9,10 @@ module.exports = {
   rules: {
     'react/prop-types': [2, { ignore: ['children', 'forwardedRef'] }],
     'react/jsx-no-undef': [2, { allowGlobals: true }]
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 }
