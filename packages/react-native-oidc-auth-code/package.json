@@ -6,7 +6,8 @@
   "module": "src/index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
