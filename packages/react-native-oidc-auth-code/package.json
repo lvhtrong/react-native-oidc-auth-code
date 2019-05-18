@@ -30,7 +30,12 @@
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
+    "@babel/register": "^7.4.4",
     "babel-jest": "^24.7.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.2.0",
+    "gulp-hub": "^4.2.0",
     "jest": "^24.7.1",
     "metro-react-native-babel-preset": "^0.53.1"
   },
