@@ -4,7 +4,12 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import PropTypes from 'prop-types'
 import SafeAreaView from 'react-native-safe-area-view'
 
-const AuthCodeWebView = ({ onClosePress, url, onNavigationStateChange }) => (
+const AuthCodeWebView = ({
+  onClosePress,
+  url,
+  onNavigationStateChange,
+  onRef
+}) => (
   <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always' }}>
     <View
       style={[
@@ -34,6 +39,7 @@ const AuthCodeWebView = ({ onClosePress, url, onNavigationStateChange }) => (
       </View>
     </View>
     <WebView
+      ref={onRef}
       source={{ uri: url }}
       onNavigationStateChange={onNavigationStateChange}
       startInLoadingState
@@ -44,7 +50,8 @@ const AuthCodeWebView = ({ onClosePress, url, onNavigationStateChange }) => (
 AuthCodeWebView.propTypes = {
   onClosePress: PropTypes.func,
   url: PropTypes.string,
-  onNavigationStateChange: PropTypes.func
+  onNavigationStateChange: PropTypes.func,
+  onRef: PropTypes.func
 }
 
 export default AuthCodeWebView

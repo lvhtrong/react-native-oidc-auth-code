@@ -9,14 +9,15 @@ import { getCode, getRedirectUrl, getError } from '../../utils'
 import AuthCodeWebView from '../WebView'
 
 const withAuthorizationCodeHandler = WrappedComponent => {
-  const hocComponent = ({ baseProps, ...props }) => (
+  const hocComponent = ({ baseProps, onRef, onCloseButtonPress, ...props }) => (
     <View style={{ flex: 1 }}>
       <WrappedComponent {...baseProps} openUrl={props.openUrl} />
       <Modal isVisible={props.isVisible} style={{ margin: 0 }}>
         <AuthCodeWebView
           url={props.url}
           onNavigationStateChange={props.onNavigationStateChange}
-          onClosePress={() => props.setVisible(false)}
+          onClosePress={onCloseButtonPress}
+          onRef={onRef}
         />
       </Modal>
     </View>
@@ -32,11 +33,16 @@ const withAuthorizationCodeHandler = WrappedComponent => {
     url: PropTypes.string,
     onNavigationStateChange: PropTypes.func,
     setVisible: PropTypes.func,
-    baseProps: PropTypes.object
+    baseProps: PropTypes.object,
+    onRef: PropTypes.func,
+    onCloseButtonPress: PropTypes.func
   }
 
   return hocComponent
 }
+
+let isFinished = false
+let webView
 
 export default compose(
   withProps(props => ({
@@ -58,9 +64,17 @@ export default compose(
     }) => url => {
       if (/code=/g.test(url)) {
         const code = getCode(url)
-        if (_.isFunction(callback.onSuccess)) {
-          setVisible(false)
-          callback.onSuccess(code)
+        if (_.isString(code)) {
+          if (_.isFunction(callback.onSuccess)) {
+            setVisible(false)
+            callback.onSuccess(code)
+          }
+        } else {
+          if (_.isFunction(callback.onError)) {
+            callback.onError({
+              code: 'CODE_NOT_FOUND'
+            })
+          }
         }
       } else if (/error=/g.test(url)) {
         const error = getError(url)
@@ -79,6 +93,8 @@ export default compose(
       setRedirectUrl,
       getRedirectUrl
     }) => (url, onSuccess, onError) => {
+      isFinished = false
+
       setUrl(url)
       setCallback({
         onSuccess,
@@ -94,7 +110,7 @@ export default compose(
         setVisible(true)
 
         if (_.isFunction(onError)) {
-          onError({ error: 'redirect_uri_missing' })
+          onError({ code: 'REDIRECT_URI_MISSING' })
         }
       }
     },
@@ -106,6 +122,21 @@ export default compose(
 
       if (url.startsWith(redirectUrl)) {
         onRedirectUriCalled(url)
+      }
+
+      if (!isFinished && url.startsWith(redirectUrl)) {
+        webView && webView.stopLoading()
+        isFinished = true
+        onRedirectUriCalled(url)
+      }
+    },
+    onRef: () => ref => (webView = ref),
+    onCloseButtonPress: ({ callback, setVisible }) => () => {
+      setVisible(false)
+      if (_.isFunction(callback.onError)) {
+        callback.onError({
+          code: 'USER_CLOSE_MANUALLY'
+        })
       }
     }
   }),
