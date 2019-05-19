@@ -37,6 +37,7 @@
     "gulp-cli": "^2.2.0",
     "gulp-eslint": "^5.0.0",
     "gulp-hub": "^4.2.0",
+    "gulp-run-command": "^0.0.9",
     "jest": "^24.7.1",
     "metro-react-native-babel-preset": "^0.53.1"
   },
