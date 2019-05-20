@@ -4,12 +4,13 @@ import { lintJs } from './lint'
 import { test } from './test'
 import { buildJs } from './build'
 import { updateChangelog } from './changelog'
+import { updateVersion } from './version'
 
 const preBuild = parallel(lintJs, test)
 
 const build = parallel(buildJs)
 
-const prePublish = parallel(series(updateChangelog))
+const prePublish = parallel(series(updateVersion, updateChangelog))
 
 const publish = null
 
